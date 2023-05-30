@@ -11,14 +11,15 @@ export const MainLayout: FC<Props> = ({ children }) => {
     return (
         <>
             <DrawerAppBar />
-            <Container sx={{
+            <Box sx={{
                 paddingTop: 8,
                 minHeight: '100vh',
                 marginTop: 2,
-                width: "100%"
+                width: "100%",
+                paddingX: { xs: 2, md: 10 }
             }}>
                 {children}
-            </Container>
+            </Box>
 
         </>
     )
