@@ -27,6 +27,35 @@ export class ManillaService implements HttpAdapter<Manilla>{
             return { data: [], status: 'error' }
         }
     }
+    async getManilla(manillaId: string): Promise<ResponseService<Manilla>> {
+        try {
+            const documentRef = doc(this.manillaCollections, manillaId);
+
+            const querySnapshot = await getDoc<Omit<Manilla, 'id'>>(documentRef);
+            const manilla = { id: querySnapshot.id, ...querySnapshot.data() } as Manilla
+
+
+            return { data: manilla, status: 'success' }
+        } catch (error) {
+            console.log(error)
+            return { data: [], status: 'error' }
+        }
+    }
+
+
+    async create(newManilla: Omit<Manilla, 'id'>): Promise<ResponseService<Manilla>> {
+        try {
+            const documentRef = await addDoc(this.manillaCollections, newManilla);
+
+            const { data: manilla } = await this.getManilla(documentRef.id)
+
+
+            return { data: manilla, status: 'success' }
+        } catch (error) {
+            console.log(error)
+            return { data: [], status: 'error' }
+        }
+    }
 
 }
 
