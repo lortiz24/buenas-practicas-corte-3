@@ -101,7 +101,7 @@ export const HomePage = () => {
                 name: 'Mar de plata',
             },
             {
-                material: 'cuero',
+                material: 'cuerda',
                 dije: 'martillo',
                 tipo: 'oro',
                 img: 'https://firebasestorage.googleapis.com/v0/b/opcion-atlantico.appspot.com/o/buenas-practicas%2Fmanilla-9.png?alt=media&token=89032866-e8bb-419e-9d62-e008480d9b40&_gl=1*1eos1x4*_ga*MjA2NDM0OTY1OS4xNjc5MDg4NDA2*_ga_CW55HF8NVT*MTY4NTQxNzk5MS41MS4xLjE2ODU0MjE4MzguMC4wLjA.',
@@ -109,7 +109,7 @@ export const HomePage = () => {
                 name: 'La rosalia',
             },
             {
-                material: 'cuero',
+                material: 'cuarda',
                 dije: 'martillo',
                 tipo: 'oro-rosado',
                 img: 'https://firebasestorage.googleapis.com/v0/b/opcion-atlantico.appspot.com/o/buenas-practicas%2Fmanilla-10.png?alt=media&token=04aa1d24-46b3-432f-ab7c-fc9478c8387c&_gl=1*77m9e0*_ga*MjA2NDM0OTY1OS4xNjc5MDg4NDA2*_ga_CW55HF8NVT*MTY4NTQxNzk5MS41MS4xLjE2ODU0MjE4NjYuMC4wLjA.',
@@ -117,7 +117,7 @@ export const HomePage = () => {
                 name: 'La rosaplateada',
             },
             {
-                material: 'cuero',
+                material: 'cuerda',
                 dije: 'martillo',
                 tipo: 'plata',
                 img: 'https://firebasestorage.googleapis.com/v0/b/opcion-atlantico.appspot.com/o/buenas-practicas%2Fmanilla-11.png?alt=media&token=0f0657cf-8a17-498d-9524-11b9ef2bde2b&_gl=1*1x8m245*_ga*MjA2NDM0OTY1OS4xNjc5MDg4NDA2*_ga_CW55HF8NVT*MTY4NTQxNzk5MS41MS4xLjE2ODU0MjE5MjMuMC4wLjA.',

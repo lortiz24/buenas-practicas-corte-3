@@ -46,7 +46,7 @@ const manillaInitial: Manilla = {
     name: "Cree su manilla",
     precio: {
         moneda: 'usd',
-        valor: 100
+        valor: 0
     },
     tipo: 'niquel'
 }
@@ -89,14 +89,17 @@ export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
     }
 
     const getPrecio = () => {
-        console.log('buildConfigManill', buildConfigManilla)
-        if (!buildConfigManilla?.moneda) {
+        if (!buildConfigManilla && !manillaSelect) {
             return '$ 0'
         }
+        if (!buildConfigManilla && manillaSelect) {
+            return `$ ${manillaSelect.precio.valor}`
+        }
+
         if (buildConfigManilla?.moneda === 'usd')
             return `$ ${manillaSelect.precio.valor * (Number(buildConfigManilla.cantidad) ?? 1)}`
         else
-            return `$ ${manillaSelect.precio.valor * 5000}`
+            return `$ ${manillaSelect.precio.valor * 5000 * (Number(buildConfigManilla?.cantidad) ?? 1)}`
     }
 
 
