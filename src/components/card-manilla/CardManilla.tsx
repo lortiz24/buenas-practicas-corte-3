@@ -55,19 +55,26 @@ const manillaInitial: Manilla = {
 export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
     const [expanded, setExpanded] = useState(false);
     const [manillaSelect, setmanillaSelect] = useState<Manilla>(manillaInitial)
-    const [isLoadingBuild, setisLoadingBuild] = useState(false)
+    const [isLoadingBuild, setisLoadingBuild] = useState(true)
+    const [buildConfigManilla, setbuildConfigManilla] = useState<FormBuildManilla>()
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     useEffect(() => {
-        if (manilla)
+        if (manilla) {
             setmanillaSelect(manilla)
+            setisLoadingBuild(false)
+        } else {
+            setisLoadingBuild(false)
+        }
     }, [manilla])
 
 
 
     const onBuild = async (values: FormBuildManilla) => {
+        setbuildConfigManilla(values)
         setisLoadingBuild(true)
         const { data: manilla } = await manillaService.getWhere(
             { fieldPath: 'dije', opStr: '==', value: values.dije },
@@ -79,6 +86,17 @@ export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
         }
         setisLoadingBuild(false)
 
+    }
+
+    const getPrecio = () => {
+        console.log('buildConfigManill', buildConfigManilla)
+        if (!buildConfigManilla?.moneda) {
+            return '$ 0'
+        }
+        if (buildConfigManilla?.moneda === 'usd')
+            return `$ ${manillaSelect.precio.valor * (Number(buildConfigManilla.cantidad) ?? 1)}`
+        else
+            return `$ ${manillaSelect.precio.valor * 5000}`
     }
 
 
@@ -122,7 +140,7 @@ export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
                                 variant='body2'
                                 fontSize={20}
                             >{manillaSelect.name}</Typography>}
-                        // subheader="September 14, 2016"
+                            subheader={getPrecio()}
                         />
                         <CardMedia
                             sx={{
@@ -134,6 +152,7 @@ export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
                                 },
                                 objectFit: 'contain',
                             }}
+                            loading={'lazy'}
                             component="img"
                             image={manillaSelect.img}
                             alt="Paella dish"
@@ -154,18 +173,18 @@ export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
                                 <ExpandMoreIcon />
                             </ExpandMore>}
                         </CardActions>
-                        {formBuilder && !isLoadingBuild &&
-                            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                                <CardContent>
-                                    <FormSelectManilla onSubmit={onBuild} />
-                                </CardContent>
-                            </Collapse>
-                        }
+
                     </Box>
                 )
             }
 
-
+            {formBuilder &&
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <FormSelectManilla onSubmit={onBuild} />
+                    </CardContent>
+                </Collapse>
+            }
         </Card >
 
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Grid, MenuItem, Typography, Button } from '@mui/material';
@@ -9,25 +10,35 @@ import { useForm } from '../../hooks/useForm';
 import { FormBuildManilla } from '../../interface/form.interface';
 import { useGetMaterial } from '../../hooks/useGetMaterial';
 
+
 interface Props {
     onSubmit?: (values: FormBuildManilla) => void;
+    initialValue?: FormBuildManilla
 }
 
 
 const formValues: FormBuildManilla = {
     cantidad: '1',
     dije: '',
-    moneda: '',
+    moneda: 'usd',
     material: '',
     typeDije: ''
 }
 
-export const FormSelectManilla = ({ onSubmit }: Props) => {
+export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
     const { dijes } = useGetDije()
     const { tipoDijes } = useGetTipoDije()
     const { monedas } = useGetMonedas()
     const { materiales } = useGetMaterial()
-    const { formState, onInputChange, onResetForm } = useForm(formValues)
+    const { formState, onInputChange, setFormState } = useForm(formValues)
+
+    console.log('initialValue', initialValue)
+
+
+    useEffect(() => {
+        if (initialValue)
+            setFormState(initialValue)
+    }, [initialValue])
 
     const handledSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -58,7 +69,7 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     <TextField
                         name='cantidad'
                         onChange={onInputChange}
-                        defaultValue={1}
+                        defaultValue={formState.cantidad}
                         required
                         label="Number"
                         type="number"
@@ -84,6 +95,7 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                         onChange={onInputChange}
                         required
                         select
+                        defaultValue={formState.material}
                         label="Material"
                         helperText="Por favor, seleccione el material"
                         sx={{
@@ -103,6 +115,7 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     xs={12}
                     md={5} >
                     <TextField
+                        defaultValue={formState.dije}
                         name='dije'
                         onChange={onInputChange}
                         required
@@ -126,6 +139,7 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     xs={12}
                     md={5} >
                     <TextField
+                        defaultValue={formState.typeDije}
                         name='typeDije'
                         onChange={onInputChange}
                         required
@@ -151,6 +165,7 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     xs={12}
                     md={5} >
                     <TextField
+                        defaultValue={formState.moneda}
                         name='moneda'
                         onChange={onInputChange}
                         required

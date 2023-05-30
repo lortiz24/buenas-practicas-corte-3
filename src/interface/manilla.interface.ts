@@ -1,15 +1,17 @@
 import { Dije, TipoDije } from "./dije.interface";
 
+
+export type Monedas = 'usd' | 'cop'
 export interface Precio {
     valor: number;
-    moneda: 'usd' | 'cop'
+    moneda: Monedas
 }
 export interface Manilla {
     id: string;
     name: string;
     material: string;
     dije: string
-    tipo:TipoDije
+    tipo: TipoDije
     precio: Precio,
     img: string
 }

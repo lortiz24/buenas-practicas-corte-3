@@ -22,6 +22,7 @@ export const useForm = <T>(initialForm: T = {} as T) => {
         ...formState,
         formState,
         onInputChange,
-        onResetForm
+        onResetForm,
+        setFormState
     }
 }
