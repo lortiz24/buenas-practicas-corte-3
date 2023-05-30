@@ -87,9 +87,9 @@ export const CardManilla = ({ manilla }: Props) => {
                 <IconButton aria-label="add to favorites">
                     <AddShoppingCartIcon />
                 </IconButton>
-                <IconButton aria-label="share">
+                {/* <IconButton aria-label="share">
                     <ShareIcon />
-                </IconButton>
+                </IconButton> */}
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
