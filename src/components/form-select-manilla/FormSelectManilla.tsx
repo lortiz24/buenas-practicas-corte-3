@@ -5,7 +5,6 @@ import { Grid, MenuItem, Typography, Button } from '@mui/material';
 import { useGetDije } from '../../hooks/useGetDije';
 import { useGetTipoDije } from '../../hooks/useGetTipoDije';
 import { useGetMonedas } from '../../hooks/useGetMonedas';
-import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import { useForm } from '../../hooks/useForm';
 import { FormBuildManilla } from '../../interface/form.interface';
 import { useGetMaterial } from '../../hooks/useGetMaterial';
@@ -31,9 +30,6 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
     const { monedas } = useGetMonedas()
     const { materiales } = useGetMaterial()
     const { formState, onInputChange, setFormState } = useForm(formValues)
-
-    console.log('initialValue', initialValue)
-
 
     useEffect(() => {
         if (initialValue)
@@ -69,7 +65,6 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     <TextField
                         name='cantidad'
                         onChange={onInputChange}
-                        defaultValue={formState.cantidad}
                         required
                         label="Number"
                         type="number"
@@ -95,7 +90,6 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                         onChange={onInputChange}
                         required
                         select
-                        defaultValue={formState.material}
                         label="Material"
                         helperText="Por favor, seleccione el material"
                         sx={{
@@ -115,7 +109,6 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     xs={12}
                     md={5} >
                     <TextField
-                        defaultValue={formState.dije}
                         name='dije'
                         onChange={onInputChange}
                         required
@@ -139,7 +132,6 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     xs={12}
                     md={5} >
                     <TextField
-                        defaultValue={formState.typeDije}
                         name='typeDije'
                         onChange={onInputChange}
                         required
@@ -165,7 +157,6 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     xs={12}
                     md={5} >
                     <TextField
-                        defaultValue={formState.moneda}
                         name='moneda'
                         onChange={onInputChange}
                         required

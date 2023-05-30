@@ -8,19 +8,38 @@ import TabPanel from '@mui/lab/TabPanel';
 import { ManillaList } from '../components/listado-manillas/ManillaList';
 import { manillaService } from '../firebase/manilla/Manilla.service';
 import { Manilla } from '../interface/manilla.interface';
-import { NestedModal } from '../components/modal/modal';
 import { FormSelectManilla } from '../components/form-select-manilla/FormSelectManilla';
 import { FormBuildManilla } from '../interface/form.interface';
+import { CardManillaDos } from '../components/card-manilla/CardManillaBuild.tsx';
+import { useMyTabs } from '../hooks/useMyTabs.ts';
+
+
+
+const manillaInitial: Manilla = {
+    dije: '',
+    id: '',
+    img: 'https://firebasestorage.googleapis.com/v0/b/opcion-atlantico.appspot.com/o/buenas-practicas%2FQuestion.png?alt=media&token=9cc212b3-25d7-40fd-b4f7-3923652a2b4c&_gl=1*m75k68*_ga*MjA2NDM0OTY1OS4xNjc5MDg4NDA2*_ga_CW55HF8NVT*MTY4NTQyNDQ5Ni41Mi4xLjE2ODU0MjQ1MTEuMC4wLjA.',
+    material: '',
+    name: "Cree su manilla",
+    precio: {
+        moneda: 'usd',
+        valor: 0
+    },
+    tipo: 'niquel'
+}
+
+
 
 export const HomePage = () => {
-    const [value, setValue] = useState('1');
-    const [manillaSelect, setmanillaSelect] = useState<Manilla>({} as Manilla)
+    const { handleChange, value } = useMyTabs()
+    const [manillaSelect, setmanillaSelect] = useState<Manilla>(manillaInitial)
+    const [formBuildConfig, setformBuildConfig] = useState<FormBuildManilla>()
+    const [isLoadingBuild, setisLoadingBuild] = useState(false)
 
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
+
 
     const onBuild = async (values: FormBuildManilla) => {
+        setisLoadingBuild(true)
         const { data: manilla } = await manillaService.getWhere(
             { fieldPath: 'dije', opStr: '==', value: values.dije },
             { fieldPath: 'material', opStr: '==', value: values.material },
@@ -28,11 +47,13 @@ export const HomePage = () => {
         )
         if (Array.isArray(manilla) && manilla.length > 0) {
             setmanillaSelect(manilla[0])
+            setformBuildConfig(values)
+        } else {
+            setmanillaSelect(manillaInitial)
         }
+        setisLoadingBuild(false)
 
     }
-
-
 
     const createManilla = () => {
         const manillas: Omit<Manilla, 'id'>[] = [
@@ -188,11 +209,11 @@ export const HomePage = () => {
                         justifyContent={'center'}
                         gap={2}
                     >
-                        {/* <Grid item >
-                            <FormSelectManilla onSubmit={onBuild} />
-                        </Grid> */}
                         <Grid item >
-                            <CardManilla formBuilder />
+                            <FormSelectManilla onSubmit={onBuild} />
+                        </Grid>
+                        <Grid item >
+                            <CardManillaDos manilla={manillaSelect} buildConfigManillaProps={formBuildConfig} isLoadingBuild={isLoadingBuild} />
                         </Grid>
                     </Grid>
                 </TabPanel>
