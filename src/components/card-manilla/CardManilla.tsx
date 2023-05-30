@@ -35,7 +35,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 interface Props {
     manilla?: Manilla,
     formBuilder?: boolean;
-    manillaFound?: Manilla
+    manillaFound?: Manilla,
+    buildConfigManillaProps?: FormBuildManilla
 }
 
 const manillaInitial: Manilla = {
@@ -52,7 +53,7 @@ const manillaInitial: Manilla = {
 }
 
 
-export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
+export const CardManilla = ({ manilla, formBuilder = false, buildConfigManillaProps }: Props) => {
     const [expanded, setExpanded] = useState(false);
     const [manillaSelect, setmanillaSelect] = useState<Manilla>(manillaInitial)
     const [isLoadingBuild, setisLoadingBuild] = useState(true)
@@ -70,6 +71,15 @@ export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
             setisLoadingBuild(false)
         }
     }, [manilla])
+
+
+
+
+    useEffect(() => {
+        if (buildConfigManillaProps) {
+            setbuildConfigManilla(buildConfigManillaProps)
+        }
+    }, [buildConfigManillaProps])
 
 
 
