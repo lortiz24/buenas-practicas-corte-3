@@ -1,27 +1,12 @@
 import { manillaService } from "../../firebase/manilla/Manilla.service"
 import { useGet } from "../../hooks/useGet"
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { CardManilla } from "../card-manilla/CardManilla";
 export const ManillaList = () => {
 
-    const { data, error, isLoading } = useGet(manillaService)
+    const { data, isLoading } = useGet(manillaService)
     return (
         <>
-
-            {/* <Box
-                sx={{
-                    marginTop: '2rem',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexWrap: 'wrap',
-                    gap: '2rem'
-                }}
-            >
-                {data.map(manilla => (
-                    <CardManilla manilla={manilla} />
-                ))}
-            </Box> */}
-
             <Grid
                 container
                 display={'flex'}
@@ -29,7 +14,7 @@ export const ManillaList = () => {
                 gap={2}
             >
                 {data.map(manilla => (
-                    <Grid item>
+                    <Grid item key={manilla.id}>
                         <CardManilla manilla={manilla} />
                     </Grid>
                 ))}

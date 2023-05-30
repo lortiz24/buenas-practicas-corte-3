@@ -213,13 +213,15 @@ export const HomePage = () => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <Box
+                    <Grid
+                        container
                         display={'flex'}
                         justifyContent={'center'}
-                    >
-                        {/* <Button onClick={createManilla}>Crear</Button> */}
-                        <CardManilla />
-                    </Box>
+                        gap={2}
+                    > <Grid item >
+                            <CardManilla />
+                        </Grid>
+                    </Grid>
                 </TabPanel>
                 <TabPanel value="2"><ManillaList /></TabPanel>
             </TabContext>
