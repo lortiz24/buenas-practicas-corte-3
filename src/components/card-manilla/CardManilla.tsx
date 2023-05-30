@@ -1,6 +1,6 @@
 
 import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography } from '@mui/material'
-import Manilla from '../../assets/manilla1.png'
+import Manilla from '../../assets/manilla-1.png'
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
