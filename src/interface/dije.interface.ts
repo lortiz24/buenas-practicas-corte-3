@@ -1,5 +1,5 @@
 
-export type TipoDije = 'oro' | ' baño-oro' | 'oro-rosado' | 'plata' | 'niquel'
+export type TipoDije = 'oro' | 'oro-rosado' | 'plata' | 'niquel'
 
 export interface Dije {
     name: 'Martillo' | 'Ancla';

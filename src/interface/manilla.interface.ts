@@ -1,6 +1,6 @@
-import { Dije } from "./dije.interface";
+import { Dije, TipoDije } from "./dije.interface";
 
-interface Precio {
+export interface Precio {
     valor: number;
     moneda: 'usd' | 'cop'
 }
@@ -8,7 +8,11 @@ export interface Manilla {
     id: string;
     name: string;
     material: string;
-    dije: Omit<Dije, 'id'>
+    dije: string
+    tipo:TipoDije
     precio: Precio,
     img: string
 }
+
+
+export type ManillaKeys = keyof Manilla;
