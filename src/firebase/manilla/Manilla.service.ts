@@ -65,6 +65,8 @@ export class ManillaService implements HttpAdapter<Manilla>{
                     wheres.push(where(query.fieldPath, query.opStr, query.value))
                 })
             }
+            console.log('condiciones=>',queryConstraints)
+
             const queryData = query<Omit<Manilla, 'id'>>(this.manillaCollections, ...wheres);
             const querySnapshot = await getDocs<Omit<Manilla, 'id'>>(queryData);
             const manillas: Manilla[] = []
@@ -73,7 +75,7 @@ export class ManillaService implements HttpAdapter<Manilla>{
                 const data: Omit<Manilla, 'id'> = doc.data();
                 manillas.push({ id: doc.id, ...data })
             });
-
+            console.log('Manilla encontrada',manillas)
             return { data: manillas, status: 'success' }
         } catch (error) {
             console.log(error)

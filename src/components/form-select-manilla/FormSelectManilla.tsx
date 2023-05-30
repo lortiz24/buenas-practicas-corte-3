@@ -115,7 +115,7 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     >
                         {dijes.map((option) => (
                             <MenuItem key={option.id} value={option.name.toLowerCase()}>
-                                {option.name}
+                                <Typography textTransform={'capitalize'}>{option.name}</Typography>
                             </MenuItem>
                         ))}
                     </TextField>
@@ -138,7 +138,8 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     >
                         {tipoDijes.map((option) => (
                             <MenuItem key={option} value={option.toLowerCase()}>
-                                {option}
+                                <Typography textTransform={'capitalize'}>{option}</Typography>
+
                             </MenuItem>
                         ))}
                     </TextField>
@@ -172,8 +173,9 @@ export const FormSelectManilla = ({ onSubmit }: Props) => {
                     xs={12}
                     md={5} >
                     <Button
-                        startIcon={<BuildOutlinedIcon />}
+                        // startIcon={<BuildOutlinedIcon />}
                         type='submit'
+                        variant='contained'
                     >
 
                         Contruir

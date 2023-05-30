@@ -17,7 +17,6 @@ const dijesDb: Omit<Dije, 'tipo'>[] = [
 export const useGetDije = () => {
     const [dijes, setdijes] = useState<Omit<Dije, 'tipo'>[]>([])
     const [isLoading, setIsLoading] = useState(true)
-console.log('dijes',dijes)
     useEffect(() => {
         setdijes(dijesDb)
         setIsLoading(false)

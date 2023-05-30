@@ -176,7 +176,7 @@ export const HomePage = () => {
             <Button onClick={createManilla}>epaa</Button>
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} aria-label="lab API tabs example">
+                    <TabList onChange={handleChange} aria-label="lab API tabs example" >
                         <Tab label="Construir Manilla" value="1" />
                         <Tab label="Listado" value="2" />
                     </TabList>

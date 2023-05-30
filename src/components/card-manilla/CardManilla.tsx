@@ -1,5 +1,5 @@
-
-import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography } from '@mui/material'
+import { useEffect, useState } from 'react';
+import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography, LinearProgress, Box, Stack, Skeleton, CircularProgress } from '@mui/material'
 import ManillaImage from '../../assets/manilla-1.png'
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -7,7 +7,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import { styled } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormSelectManilla } from '../form-select-manilla/FormSelectManilla';
 import { Manilla } from '../../interface/manilla.interface';
@@ -53,20 +52,23 @@ const manillaInitial: Manilla = {
 }
 
 
-export const CardManilla = ({ manilla, formBuilder = false, manillaFound }: Props) => {
+export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
     const [expanded, setExpanded] = useState(false);
-    const [manillaSelect, setmanillaSelect] = useState<Manilla>({} as Manilla)
+    const [manillaSelect, setmanillaSelect] = useState<Manilla>(manillaInitial)
+    const [isLoadingBuild, setisLoadingBuild] = useState(false)
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     useEffect(() => {
-        if (manillaFound)
-            return setmanillaSelect(manillaFound)
-        setmanillaSelect(manillaInitial)
-    }, [manillaFound])
+        if (manilla)
+            setmanillaSelect(manilla)
+    }, [manilla])
+
+
 
     const onBuild = async (values: FormBuildManilla) => {
+        setisLoadingBuild(true)
         const { data: manilla } = await manillaService.getWhere(
             { fieldPath: 'dije', opStr: '==', value: values.dije },
             { fieldPath: 'material', opStr: '==', value: values.material },
@@ -75,6 +77,7 @@ export const CardManilla = ({ manilla, formBuilder = false, manillaFound }: Prop
         if (Array.isArray(manilla) && manilla.length > 0) {
             setmanillaSelect(manilla[0])
         }
+        setisLoadingBuild(false)
 
     }
 
@@ -88,58 +91,81 @@ export const CardManilla = ({ manilla, formBuilder = false, manillaFound }: Prop
                 },
                 borderRadius: '2rem'
             }}>
-            <CardHeader
-                avatar={
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        M
-                    </Avatar>
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={<Typography
-                    variant='body2'
-                    fontSize={20}
-                >{manilla?.name ?? manillaSelect.name}</Typography>}
-            // subheader="September 14, 2016"
-            />
-            <CardMedia
-                sx={{
-                    width: {
-                        xs: '100%'
-                    },
-                    height: {
-                        xs: '100%', sm: 400, lg: 400
-                    },
-                    objectFit: 'contain',
-                }}
-                component="img"
-                image={manilla?.img ?? manillaSelect.img}
-                alt="Paella dish"
-            />
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <AddShoppingCartIcon />
-                </IconButton>
-                {/* <IconButton aria-label="share">
+            {isLoadingBuild
+                ?
+                <>
+                    <Box
+                        height={400}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                    >
+                        <CircularProgress color="primary" />
+                    </Box>
+                </>
+                :
+                (
+                    <Box>
+                        <CardHeader
+                            avatar={
+                                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                    M
+                                </Avatar>
+                            }
+                            action={
+                                <IconButton aria-label="settings">
+                                    <MoreVertIcon />
+                                </IconButton>
+                            }
+                            title={<Typography
+                                variant='body2'
+                                fontSize={20}
+                            >{manillaSelect.name}</Typography>}
+                        // subheader="September 14, 2016"
+                        />
+                        <CardMedia
+                            sx={{
+                                width: {
+                                    xs: '100%'
+                                },
+                                height: {
+                                    xs: '100%', sm: 400, lg: 400
+                                },
+                                objectFit: 'contain',
+                            }}
+                            component="img"
+                            image={manillaSelect.img}
+                            alt="Paella dish"
+                        />
+                        <CardActions disableSpacing>
+                            <IconButton aria-label="add to favorites">
+                                <AddShoppingCartIcon />
+                            </IconButton>
+                            {/* <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton> */}
-                {formBuilder && <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
-                </ExpandMore>}
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <FormSelectManilla onSubmit={onBuild} />
-                </CardContent>
-            </Collapse>
+                            {formBuilder && <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>}
+                        </CardActions>
+                        {formBuilder && !isLoadingBuild &&
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    <FormSelectManilla onSubmit={onBuild} />
+                                </CardContent>
+                            </Collapse>
+                        }
+                    </Box>
+                )
+            }
+
+
         </Card >
 
 
