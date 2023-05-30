@@ -1,6 +1,6 @@
 
 import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography } from '@mui/material'
-import Manilla from '../../assets/manilla-1.png'
+import ManillaImage from '../../assets/manilla-1.png'
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormSelectManilla } from '../form-select-manilla/FormSelectManilla';
 import { useGet } from '../../hooks/useGet';
 import { dijeService } from '../../firebase/dije/Dije.service';
+import { Manilla } from '../../interface/manilla.interface';
 
 
 
@@ -32,7 +33,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 
 
-export const CardManilla = () => {
+interface Props {
+    manilla?: Manilla
+}
+
+export const CardManilla = ({ manilla }: Props) => {
     const [expanded, setExpanded] = useState(false);
 
 
@@ -47,9 +52,8 @@ export const CardManilla = () => {
         <Card
             sx={{
                 width: {
-                    xs: '100%', sm: 400, lg: 500
+                    xs: '100%', sm: 400, lg: 400
                 },
-                height:'auto',
                 borderRadius: '2rem'
             }}>
             <CardHeader
@@ -63,12 +67,21 @@ export const CardManilla = () => {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={manilla?.name ?? "Shrimp and Chorizo Paella"}
+            // subheader="September 14, 2016"
             />
             <CardMedia
+                sx={{
+                    width: {
+                        xs: '100%'
+                    },
+                    height: {
+                        xs: '100%', sm: 400, lg: 400
+                    },
+                    objectFit: 'contain',
+                }}
                 component="img"
-                image={Manilla}
+                image={manilla?.img ?? ManillaImage}
                 alt="Paella dish"
             />
             <CardActions disableSpacing>
