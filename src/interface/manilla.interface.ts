@@ -8,6 +8,7 @@ export interface Manilla {
     id: string;
     name: string;
     material: string;
-    dije: Dije
-    precio: Precio
+    dije: Omit<Dije, 'id'>
+    precio: Precio,
+    img: string
 }
