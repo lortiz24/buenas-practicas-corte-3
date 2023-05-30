@@ -12,7 +12,8 @@ import { useGetMaterial } from '../../hooks/useGetMaterial';
 
 interface Props {
     onSubmit?: (values: FormBuildManilla) => void;
-    initialValue?: FormBuildManilla
+    initialValue?: FormBuildManilla;
+    onDestroy: () => void;
 }
 
 
@@ -24,12 +25,12 @@ const formValues: FormBuildManilla = {
     typeDije: ''
 }
 
-export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
+export const FormSelectManilla = ({ onSubmit, initialValue, onDestroy }: Props) => {
     const { dijes } = useGetDije()
     const { tipoDijes } = useGetTipoDije()
     const { monedas } = useGetMonedas()
     const { materiales } = useGetMaterial()
-    const { formState, onInputChange, setFormState } = useForm(formValues)
+    const { formState, onInputChange, setFormState, onResetForm } = useForm(formValues)
 
     useEffect(() => {
         if (initialValue)
@@ -41,14 +42,16 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
         if (onSubmit) onSubmit(formState)
     }
 
+    const hanledClean = () => {
+        onResetForm()
+        onDestroy()
+    }
 
     return (
         <Box
             onSubmit={handledSubmit}
             component="form"
             width={'100%'}
-            noValidate
-            autoComplete="off"
         >
             <Grid
                 container
@@ -64,6 +67,7 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                 >
                     <TextField
                         name='cantidad'
+                        value={formState.cantidad}
                         onChange={onInputChange}
                         required
                         label="Number"
@@ -88,6 +92,7 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     <TextField
                         name='material'
                         onChange={onInputChange}
+                        value={formState.material}
                         required
                         select
                         label="Material"
@@ -110,6 +115,7 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     md={5} >
                     <TextField
                         name='dije'
+                        value={formState.dije}
                         onChange={onInputChange}
                         required
                         select
@@ -119,11 +125,13 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                             width: '100%'
                         }}
                     >
-                        {dijes.map((option) => (
-                            <MenuItem key={option.id} value={option.name.toLowerCase()}>
-                                <Typography textTransform={'capitalize'}>{option.name}</Typography>
-                            </MenuItem>
-                        ))}
+                        {dijes.map((option) => {
+                            return (
+                                <MenuItem key={option.id} value={option.name.toLowerCase()}>
+                                    <Typography textTransform={'capitalize'}>{option.name}</Typography>
+                                </MenuItem>
+                            )
+                        })}
                     </TextField>
 
                 </Grid>
@@ -134,6 +142,7 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     <TextField
                         name='typeDije'
                         onChange={onInputChange}
+                        value={formState.typeDije}
                         required
                         select
                         label="Tipo de dije"
@@ -158,6 +167,7 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                     md={5} >
                     <TextField
                         name='moneda'
+                        value={formState.moneda}
                         onChange={onInputChange}
                         required
                         select
@@ -177,16 +187,29 @@ export const FormSelectManilla = ({ onSubmit, initialValue }: Props) => {
                 <Grid
                     item
                     xs={12}
-                    md={5} >
-                    <Button
-                        // startIcon={<BuildOutlinedIcon />}
-                        type='submit'
-                        variant='contained'
-                    >
-
-                        Contruir
-                    </Button>
-
+                    md={5}
+                >
+                    <Grid container columnGap={2}>
+                        <Grid item >
+                            <Button
+                                // startIcon={<BuildOutlinedIcon />}
+                                size='medium'
+                                type='submit'
+                                variant='contained'
+                            >
+                                Contruir
+                            </Button>
+                        </Grid>
+                        <Grid item >
+                            <Button
+                                size='medium'
+                                onClick={hanledClean}
+                                variant='outlined'
+                            >
+                                Limpiar
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
 

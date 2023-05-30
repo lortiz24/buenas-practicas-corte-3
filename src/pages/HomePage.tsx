@@ -55,6 +55,11 @@ export const HomePage = () => {
 
     }
 
+
+    const onDestroy = () => {
+        setmanillaSelect(manillaInitial)
+        setformBuildConfig(undefined)
+    }
     const createManilla = () => {
         const manillas: Omit<Manilla, 'id'>[] = [
             {
@@ -192,6 +197,8 @@ export const HomePage = () => {
         })
 
     }
+
+
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
             {/* <Button onClick={createManilla}>epaa</Button> */}
@@ -206,13 +213,15 @@ export const HomePage = () => {
                     <Grid
                         container
                         display={'flex'}
-                        justifyContent={'center'}
-                        gap={2}
+                        justifyContent={'space-between'}
+                        gap={1}
                     >
-                        <Grid item >
-                            <FormSelectManilla onSubmit={onBuild} />
+                        <Grid item xs={12} sm={12} lg={6} marginBottom={{ xs: 2, sm: 2, md: 0 }}>
+                            <FormSelectManilla onSubmit={onBuild} initialValue={formBuildConfig} onDestroy={onDestroy} />
                         </Grid>
-                        <Grid item >
+                        <Grid item xs={12} sm={12} lg={5}
+                            display={'flex'}
+                            justifyContent={'center'}>
                             <CardManillaDos manilla={manillaSelect} buildConfigManillaProps={formBuildConfig} isLoadingBuild={isLoadingBuild} />
                         </Grid>
                     </Grid>
