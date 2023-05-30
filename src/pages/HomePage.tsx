@@ -9,13 +9,29 @@ import { ManillaList } from '../components/listado-manillas/ManillaList';
 import { manillaService } from '../firebase/manilla/Manilla.service';
 import { Manilla } from '../interface/manilla.interface';
 import { NestedModal } from '../components/modal/modal';
+import { FormSelectManilla } from '../components/form-select-manilla/FormSelectManilla';
+import { FormBuildManilla } from '../interface/form.interface';
 
 export const HomePage = () => {
     const [value, setValue] = useState('1');
+    const [manillaSelect, setmanillaSelect] = useState<Manilla>({} as Manilla)
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
     };
+
+    const onBuild = async (values: FormBuildManilla) => {
+        const { data: manilla } = await manillaService.getWhere(
+            { fieldPath: 'dije', opStr: '==', value: values.dije },
+            { fieldPath: 'material', opStr: '==', value: values.material },
+            { fieldPath: 'tipo', opStr: '==', value: values.typeDije },
+        )
+        if (Array.isArray(manilla) && manilla.length > 0) {
+            setmanillaSelect(manilla[0])
+        }
+
+    }
+
 
 
     const createManilla = () => {
@@ -171,8 +187,12 @@ export const HomePage = () => {
                         display={'flex'}
                         justifyContent={'center'}
                         gap={2}
-                    > <Grid item >
-                            <CardManilla formBuilder/>
+                    >
+                        {/* <Grid item >
+                            <FormSelectManilla onSubmit={onBuild} />
+                        </Grid> */}
+                        <Grid item >
+                            <CardManilla formBuilder />
                         </Grid>
                     </Grid>
                 </TabPanel>

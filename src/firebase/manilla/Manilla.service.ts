@@ -59,14 +59,12 @@ export class ManillaService implements HttpAdapter<Manilla>{
     }
     async getWhere(...queryConstraints: QueryManilla[]): Promise<ResponseService<Manilla>> {
         try {
-            console.log('queryConstraints',queryConstraints)
             const wheres: QueryFieldFilterConstraint[] = []
             if (queryConstraints.length > 0) {
                 queryConstraints.map(query => {
                     wheres.push(where(query.fieldPath, query.opStr, query.value))
                 })
             }
-            console.log('wheres',wheres)
             const queryData = query<Omit<Manilla, 'id'>>(this.manillaCollections, ...wheres);
             const querySnapshot = await getDocs<Omit<Manilla, 'id'>>(queryData);
             const manillas: Manilla[] = []

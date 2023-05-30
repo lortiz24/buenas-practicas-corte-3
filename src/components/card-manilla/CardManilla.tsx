@@ -35,7 +35,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 interface Props {
     manilla?: Manilla,
-    formBuilder?: boolean
+    formBuilder?: boolean;
+    manillaFound?: Manilla
 }
 
 const manillaInitial: Manilla = {
@@ -52,17 +53,18 @@ const manillaInitial: Manilla = {
 }
 
 
-export const CardManilla = ({ manilla, formBuilder = false }: Props) => {
+export const CardManilla = ({ manilla, formBuilder = false, manillaFound }: Props) => {
     const [expanded, setExpanded] = useState(false);
     const [manillaSelect, setmanillaSelect] = useState<Manilla>({} as Manilla)
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-
     useEffect(() => {
+        if (manillaFound)
+            return setmanillaSelect(manillaFound)
         setmanillaSelect(manillaInitial)
-    }, [])
+    }, [manillaFound])
 
     const onBuild = async (values: FormBuildManilla) => {
         const { data: manilla } = await manillaService.getWhere(
