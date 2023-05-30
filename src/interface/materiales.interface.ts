@@ -1,7 +1,6 @@
-import { MateriaPrima } from "./materia-prima.interface";
 
-
-
-export interface Material extends MateriaPrima {
+export interface Material  {
+    name: 'Cuero' | 'Cuerda';
+    status: 'disponible' | 'agotado'
     id: string;
 }
