@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CardManilla } from "../components/card-manilla/CardManilla"
-import { Box, Grid, Button } from '@mui/material';
+import { Box, Grid, Button, Typography } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -12,6 +12,7 @@ import { FormSelectManilla } from '../components/form-select-manilla/FormSelectM
 import { FormBuildManilla } from '../interface/form.interface';
 import { CardManillaDos } from '../components/card-manilla/CardManillaBuild.tsx';
 import { useMyTabs } from '../hooks/useMyTabs.ts';
+import '../components/card-manilla/cardManilla.style.css'
 
 
 
@@ -207,6 +208,7 @@ export const HomePage = () => {
                     <TabList onChange={handleChange} aria-label="lab API tabs example" >
                         <Tab label="Construir Manilla" value="1" />
                         <Tab label="Listado" value="2" />
+                        <Tab label="Listado" value="3" />
                     </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -227,6 +229,25 @@ export const HomePage = () => {
                     </Grid>
                 </TabPanel>
                 <TabPanel value="2"><ManillaList /></TabPanel>
+                <TabPanel value="3">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <div className='contenedorCard' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                            <img src={manillaInitial.img} style={{ width: '400px' }} />
+                            <Typography
+                                className='first'
+                                variant="h2"
+                                component="span"
+                                style={{ textAlign: 'center' }} textAlign={'center'}>
+                                <strong>$ 100</strong>
+                            </Typography>
+                        </div>
+                    </Box>
+                </TabPanel>
             </TabContext>
         </Box>
     )

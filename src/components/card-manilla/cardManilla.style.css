@@ -1,0 +1,49 @@
+.contenedorCard {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.contenedorCard img:first-child {
+  border-radius: 4px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.first {
+  position: absolute;
+  width: 200px;
+  bottom: 0;
+  margin: auto;
+  transition: 0.3s ease;
+  opacity: 0;
+}
+
+.contenedorCard:hover {
+  box-shadow: 0 60px 60px -60px rgba(0, 30, 255, 0.5);
+  transform: perspective(250px) rotateX(5deg) translateY(-5%) translate(0);
+}
+
+.contenedorCard::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 10%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0) 95%
+  );
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.contenedorCard:hover::before {
+  opacity: 1;
+}
+
+.contenedorCard:hover .first {
+  opacity: 1;
+  transform: translateY(0.1%);
+}

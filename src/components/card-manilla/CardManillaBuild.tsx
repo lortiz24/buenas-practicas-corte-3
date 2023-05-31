@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography, LinearProgress, Box, Stack, Skeleton, CircularProgress } from '@mui/material'
-import ManillaImage from '../../assets/manilla-1.png'
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { FormSelectManilla } from '../form-select-manilla/FormSelectManilla';
 import { Manilla } from '../../interface/manilla.interface';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { FormBuildManilla } from '../../interface/form.interface';
-import { manillaService } from '../../firebase/manilla/Manilla.service';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
