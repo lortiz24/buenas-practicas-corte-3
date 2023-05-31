@@ -1,4 +1,4 @@
-import { Dije, TipoDije } from "./dije.interface";
+import { TipoDije } from "./dije.interface";
 
 
 export type Monedas = 'usd' | 'cop'

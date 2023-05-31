@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import { CardManilla } from "../card-manilla/CardManilla";
 export const ManillaList = () => {
 
-    const { data, isLoading } = useGet(manillaService)
+    const { data } = useGet(manillaService)
     return (
         <>
             <Grid

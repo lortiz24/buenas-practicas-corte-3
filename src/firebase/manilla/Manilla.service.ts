@@ -1,10 +1,9 @@
-import { Dije } from "../../interface/dije.interface";
 import { Manilla } from "../../interface/manilla.interface";
 import { QueryManilla } from "../../interface/query-manilla";
 import { HttpAdapter } from "../../interface/service";
 import { ResponseService } from "../../interface/statusResponse";
 import { manillasCollectionRef } from "../providers";
-import { query, orderBy, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, getDoc, where, QueryFieldFilterConstraint, } from "firebase/firestore";
+import { query, addDoc, getDocs, doc, getDoc, where, QueryFieldFilterConstraint, } from "firebase/firestore";
 
 export class ManillaService implements HttpAdapter<Manilla>{
     constructor(
@@ -65,7 +64,7 @@ export class ManillaService implements HttpAdapter<Manilla>{
                     wheres.push(where(query.fieldPath, query.opStr, query.value))
                 })
             }
-            console.log('condiciones=>',queryConstraints)
+            console.log('condiciones=>', queryConstraints)
 
             const queryData = query<Omit<Manilla, 'id'>>(this.manillaCollections, ...wheres);
             const querySnapshot = await getDocs<Omit<Manilla, 'id'>>(queryData);
@@ -75,7 +74,7 @@ export class ManillaService implements HttpAdapter<Manilla>{
                 const data: Omit<Manilla, 'id'> = doc.data();
                 manillas.push({ id: doc.id, ...data })
             });
-            console.log('Manilla encontrada',manillas)
+            console.log('Manilla encontrada', manillas)
             return { data: manillas, status: 'success' }
         } catch (error) {
             console.log(error)

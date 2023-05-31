@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { CardManilla } from "../components/card-manilla/CardManilla"
-import { Box, Grid, Button, Typography } from '@mui/material';
+import { Box, Grid} from '@mui/material';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -70,7 +69,6 @@ export const HomePage = () => {
                     <TabList onChange={handleChange} aria-label="lab API tabs example" >
                         <Tab label="Construir Manilla" value="1" />
                         <Tab label="Listado" value="2" />
-                        <Tab label="Listado" value="3" />
                     </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -91,7 +89,7 @@ export const HomePage = () => {
                     </Grid>
                 </TabPanel>
                 <TabPanel value="2"><ManillaList /></TabPanel>
-                <TabPanel value="3">
+                {/* <TabPanel value="3">
                     <Box
                         sx={{
                             display: 'flex',
@@ -109,7 +107,7 @@ export const HomePage = () => {
                             </Typography>
                         </div>
                     </Box>
-                </TabPanel>
+                </TabPanel> */}
             </TabContext>
         </Box>
     )

@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography, LinearProgress, Box, Stack, Skeleton, CircularProgress } from '@mui/material'
-import ManillaImage from '../../assets/manilla-1.png'
+import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography, Box, CircularProgress } from '@mui/material'
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import { styled } from '@mui/material/styles';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormSelectManilla } from '../form-select-manilla/FormSelectManilla';
 import { Manilla } from '../../interface/manilla.interface';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import { FormBuildManilla } from '../../interface/form.interface';
 import { manillaService } from '../../firebase/manilla/Manilla.service';
 
@@ -20,7 +16,7 @@ interface ExpandMoreProps extends IconButtonProps {
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
+    const { ...other } = props;
     return <IconButton {...other} />;
 })(({ theme, expand }) => ({
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',

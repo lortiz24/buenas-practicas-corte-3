@@ -2,7 +2,7 @@ import { Dije } from "../../interface/dije.interface";
 import { HttpAdapter } from "../../interface/service";
 import { ResponseService } from "../../interface/statusResponse";
 import { dijesCollectionRef } from "../providers";
-import { query, orderBy, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, getDoc, where, } from "firebase/firestore";
+import { query, getDocs } from "firebase/firestore";
 
 export class DijeService implements HttpAdapter<Dije>{
     constructor(

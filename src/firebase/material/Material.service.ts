@@ -1,9 +1,8 @@
-import { Dije } from "../../interface/dije.interface";
 import { Material } from "../../interface/materiales.interface";
 import { HttpAdapter } from "../../interface/service";
 import { ResponseService } from "../../interface/statusResponse";
 import { materialesCollectionRef } from "../providers";
-import { query, getDocs, where } from "firebase/firestore";
+import { query, getDocs } from "firebase/firestore";
 
 export class MaterialService implements HttpAdapter<Material>{
     constructor(

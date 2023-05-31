@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Container, Box } from "@mui/material"
+import { Box } from "@mui/material"
 import { DrawerAppBar } from "../ui/Navbar"
 
 interface Props {

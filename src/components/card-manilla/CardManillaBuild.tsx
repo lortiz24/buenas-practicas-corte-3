@@ -1,28 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Card, CardMedia, CardHeader, Avatar, CardActions, Collapse, CardContent, Typography, LinearProgress, Box, Stack, Skeleton, CircularProgress } from '@mui/material'
+import { Card, CardMedia, CardHeader, Avatar, CardActions, Typography,  Box, CircularProgress } from '@mui/material'
 import { red } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { styled } from '@mui/material/styles';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import { Manilla } from '../../interface/manilla.interface';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { FormBuildManilla } from '../../interface/form.interface';
-
-interface ExpandMoreProps extends IconButtonProps {
-    expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
-
 
 
 interface Props {
