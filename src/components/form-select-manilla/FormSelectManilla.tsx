@@ -13,7 +13,7 @@ import { useGetMaterial } from '../../hooks/useGetMaterial';
 interface Props {
     onSubmit?: (values: FormBuildManilla) => void;
     initialValue?: FormBuildManilla;
-    onDestroy: () => void;
+    onDestroy?: () => void;
 }
 
 
@@ -44,7 +44,7 @@ export const FormSelectManilla = ({ onSubmit, initialValue, onDestroy }: Props) 
 
     const hanledClean = () => {
         onResetForm()
-        onDestroy()
+        if (onDestroy) onDestroy()
     }
 
     return (
